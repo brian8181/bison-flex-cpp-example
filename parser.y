@@ -1,8 +1,8 @@
 /*
  * The MIT License (MIT)
- * 
+ *
  * Copyright (c) 2014 Krzysztof Narkiewicz <krzysztof.narkiewicz@ezaquarii.com>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
  * files (the "Software"), to deal in the Software without
@@ -11,10 +11,10 @@
  * copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following
  * conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
  * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -23,7 +23,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
- * 
+ *
  */
 
 %skeleton "lalr1.cc" /* -*- C++ -*- */
@@ -63,16 +63,16 @@
     #include "parser.hpp"
     #include "interpreter.h"
     #include "location.hh"
-    
+
     // yylex() arguments are defined in parser.y
     static EzAquarii::Parser::symbol_type yylex(EzAquarii::Scanner &scanner, EzAquarii::Interpreter &driver) {
         return scanner.get_next_token();
     }
-    
+
     // you can accomplish the same thing by inlining the code using preprocessor
     // x and y are same as in above static function
     // #define yylex(x, y) scanner.get_next_token()
-    
+
     using namespace EzAquarii;
 }
 
@@ -85,6 +85,46 @@
 %define parse.error verbose
 
 %define api.token.prefix {TOKEN_}
+
+%token <std::string> INT "indent"
+%token <std::string> FLOAT "floating"
+%token <std::string> CHAR "charcater"
+%token <std::string> VOID "void"
+%token <std::string> REFERENCE POINTER
+%token <std::string> ASSIGNMENT
+%token <std::string> ARG
+%token <std::string> SPACE TAB NEWLINE
+//%token <std::string> LBRACE RBRACE LCURLY RCURLY LPAREN RPAREN
+%token <std::string> STATIC CONST UNSIGNED VOLATILE MUTABLE REGISTER RESTRICT INLINE
+%token <std::string> SHIFT_LEFT SHIFT_RIGHT MODULUS
+%token <std::string> EQUALS LOGICAL_NOT LOGICAL_AND LOGICAL_OR BIT_AND BIT_OR BIT_XOR BIT_NOT
+%token <std::string> ADDITION SUBTRACTION MUTIPLICATION DIVISION
+%token <std::string> LESS_THAN GREATER_THAN
+%token <std::string> COLON DOUBLE_QUOTE SINGLE_QUOTE QUESTION_MARK DOT AT_SYMBOL
+%token <std::string> PRIVATE PROTECTED PUBLIC
+%token <std::string> ADDRESS_OF SCOPE_RESOLUTION
+%token <std::string> DIRECT_TO_POINTER INDIRECT_TO_POINTER
+%token <std::string> DIRECT_MEMBER_SELECT INDIRECT_MEMBER_SELECT
+%token <std::string> IF ELSE FOR DO WHILE CONTINUE BREAK SWITCH CASE GOTO DEFAULT RETURN
+%type <std::string> files
+%type <std::string> file
+%type <std::string> function
+%type <std::string> scopes
+%type <std::string> scope
+%type <std::string> lines
+%type <std::string> line
+%type <std::string> declaration
+%type <std::string> params
+%type <std::string> param
+%type <std::string> type
+%type <std::string> type_modifier
+%type <std::string> pointer_to_member
+%type <std::string> member_select
+%type <std::string> access_specifier
+%type <std::string> numeric_expr
+%type <std::string> expr
+%type <std::string> statement
+
 
 %token END 0 "end of file"
 %token <std::string> STRING  "string";
@@ -109,9 +149,9 @@ program :   {
                      << " * function(1,2,3)" << endl
                      << "Terminate listing with ; to see parsed AST" << endl
                      << "Terminate parser with Ctrl-D" << endl;
-                
+
                 cout << endl << "prompt> ";
-                
+
                 driver.clear();
             }
         | program command
@@ -160,15 +200,15 @@ arguments : NUMBER
             cout << "next argument: " << number << ", arg list size = " << args.size() << endl;
         }
     ;
-    
+
 %%
 
 // Bison expects us to provide implementation - otherwise linker complains
 void EzAquarii::Parser::error(const location &loc , const std::string &message) {
-        
+
         // Location should be initialized inside scanner action, but is not in this example.
         // Let's grab location directly from driver class.
 	// cout << "Error: " << message << endl << "Location: " << loc << endl;
-	
+
         cout << "Error: " << message << endl << "Error location: " << driver.location() << endl;
 }
