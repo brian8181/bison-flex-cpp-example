@@ -1,8 +1,8 @@
 /*
  * The MIT License (MIT)
- * 
+ *
  * Copyright (c) 2014 Krzysztof Narkiewicz <krzysztof.narkiewicz@ezaquarii.com>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
  * files (the "Software"), to deal in the Software without
@@ -11,10 +11,10 @@
  * copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following
  * conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
  * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -23,7 +23,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
- * 
+ *
  */
 
 %{
@@ -43,7 +43,7 @@
 	// This will track current scanner location.
 	// Action is called when length of the token is known.
 	#define YY_USER_ACTION m_driver.increaseLocation(yyleng);
-	
+
 	// !!!WARNING!!!
 	// Location API is used, but the location is not initialized, 'cause I'm lazy. When making
 	// a token with make_{something} method you can pass detailed token location. Current location
@@ -64,31 +64,31 @@
 %%
 
 
-[a-z]+      { 
+[a-z]+      {
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ )); 
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
             }
-            
+
 \(          {
                 cout << "Scanner: '('" << endl;
                 return EzAquarii::Parser::make_LEFTPAR(EzAquarii::location());
             }
-            
-\)          { 
+
+\)          {
                 cout << "Scanner: ')'" << endl;
                 return EzAquarii::Parser::make_RIGHTPAR(EzAquarii::location());
             }
-            
+
 ;           {
                 cout << "Scanner: ';'" << endl;
                 return EzAquarii::Parser::make_SEMICOLON(EzAquarii::location());
             }
-            
+
 ,           {
                 cout << "Scanner: ','" << endl;
                 return EzAquarii::Parser::make_COMMA(EzAquarii::location());
             }
-            
+
 [\n\t ]     {
                 //cout << "Scanner: whitechar (ignored)" << endl;
             }
@@ -99,10 +99,30 @@
                 return EzAquarii::Parser::make_NUMBER(number, EzAquarii::location());
             }
 
-.           { 
-                cout << "Scanner: unknown character [" << yytext << "]" << endl; 
+"return"    {
+                const char* s = "return";
+                //return s;
             }
-            
+"if"        {  }
+"else"      {  }
+"do"        {  }
+"while"     {  }
+"for"       {  }
+"continue"  {  }
+"switch"    {  }
+"case"      {  }
+"break"     {  }
+"goto"      {  }
+"default"   {  }
+"void"      {  }
+
+
+
+
+.           {
+                cout << "Scanner: unknown character [" << yytext << "]" << endl;
+            }
+
 <<EOF>>     { return yyterminate(); }
 
 
