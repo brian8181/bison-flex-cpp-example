@@ -1,9 +1,24 @@
+APP = bcc
+CXX = g++
+BISON = bison
+FLEX = flex
+
+CXXFLAGS?=
+FLEX_FLAGS?=
+BISONFLAGS?=
+
+ROOT = .
+BLD = build
+OBJ = build
+SRC = src
+
+
 all:
-	flex -o scanner.cpp scanner.l
-	bison -o parser.cpp parser.y
-	g++ -g main.cpp scanner.cpp parser.cpp interpreter.cpp command.cpp -o a.out
+	flex -o $(SRC)/scanner.cpp $(SRC)/scanner.l
+	bison -o $(SRC)/parser.cpp $(SRC)/parser.y
+	g++ -g $(SRC)/main.cpp $(SRC)/scanner.cpp $(SRC)/parser.cpp $(SRC)/interpreter.cpp $(SRC)/command.cpp -o $(BLD)/bcc
 
 clean:
-	rm -rf scanner.cpp
-	rm -rf parser.cpp parser.hpp location.hh position.hh stack.hh
-	rm -rf a.out
+	rm -rf $(SRC)/scanner.cpp
+	rm -rf $(SRC)/parser.cpp $(SRC)/parser.hpp $(SRC)/location.hh $(SRC)/position.hh $(SRC)/stack.hh
+	rm -rf $(BLD)/bcc
