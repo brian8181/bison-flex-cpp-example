@@ -205,6 +205,44 @@ arguments : NUMBER
             cout << "next argument: " << number << ", arg list size = " << args.size() << endl;
         }
     ;
+operator:
+    ASSIGNMENT
+    | ADDITION
+    | SUBTRACTION
+    | MUTIPLICATION
+    | DIVISION
+    | LESS_THAN
+    | EQUALS
+    | GREATER_THAN
+    | BIT_AND
+    | BIT_OR
+    | BIT_XOR
+    | BIT_NOT
+    | LOGICAL_NOT
+    | LOGICAL_AND
+    | LOGICAL_OR
+    | SHIFT_LEFT
+    | SHIFT_RIGHT
+    | MODULUS
+    | COLON
+    | SEMICOLON
+    | DOUBLE_QUOTE
+    | SINGLE_QUOTE
+    | QUESTION_MARK
+    | DOT
+    | AT_SYMBOL
+    | ADDRESS_OF
+    | SCOPE_RESOLUTION
+    ;
+member_select:
+    DIRECT_MEMBER_SELECT
+    | INDIRECT_MEMBER_SELECT
+    ;
+pointer_to_member:
+    INDIRECT_TO_POINTER
+    | DIRECT_TO_POINTER
+    ;
+
 
 %%
 

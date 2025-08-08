@@ -103,6 +103,11 @@
                 return EzAquarii::Parser::make_COMMA(EzAquarii::location());
             }
 
+"void"      {
+                cout << "Scanner: 'void'" << endl;
+                return EzAquarii::Parser::make_VOID(yytext, EzAquarii::location());
+            }
+
 [\n\t ]     {
                 //cout << "Scanner: whitechar (ignored)" << endl;
             }
