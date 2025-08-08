@@ -117,18 +117,18 @@
 "int"       { string s(strdup(yytext));  }
 "float"     { string s(strdup(yytext));  }
 "char"      { string s(strdup(yytext));  }
-"if"        {  }
-"else"      {  }
-"do"        {  }
-"while"     {  }
-"for"       {  }
-"continue"  {  }
-"switch"    {  }
-"case"      {  }
-"break"     {  }
-"goto"      {  }
-"default"   {  }
-"void"      {  }
+"if"        { string s(strdup(yytext));  }
+"else"      { string s(strdup(yytext));  }
+"do"        { string s(strdup(yytext));  }
+"while"     { string s(strdup(yytext));  }
+"for"       { string s(strdup(yytext));  }
+"continue"  { string s(strdup(yytext));  }
+"switch"    { string s(strdup(yytext));  }
+"case"      { string s(strdup(yytext));  }
+"break"     { string s(strdup(yytext));  }
+"goto"      { string s(strdup(yytext));  }
+"default"   { string s(strdup(yytext));  }
+"void"      { string s(strdup(yytext));  }
 "private"   { string s(strdup(yytext));  }
 "protected" { string s(strdup(yytext));  }
 "public"    { string s(strdup(yytext));  }
@@ -143,6 +143,37 @@
 "=="        { string s(strdup(yytext));  }
 "&&"        { string s(strdup(yytext));  }
 "||"        { string s(strdup(yytext));  }
+"="         { string s(strdup(yytext));  }
+";"         { string s(strdup(yytext));  }
+"+"         { string s(strdup(yytext));  }
+"-"         { string s(strdup(yytext));  }
+","         { string s(strdup(yytext));  }
+"("         { string s(strdup(yytext));  }
+")"         { string s(strdup(yytext));  }
+"{"         { string s(strdup(yytext));  }
+"}"         { string s(strdup(yytext));  }
+"["         { string s(strdup(yytext));  }
+"]"         { string s(strdup(yytext));  }
+"<"         { string s(strdup(yytext));  }
+">"         { string s(strdup(yytext));  }
+"#"         { string s(strdup(yytext));  }
+"$"         { string s(strdup(yytext));  }
+"%"         { string s(strdup(yytext));  }
+"^"         { string s(strdup(yytext));  }
+"\""        { string s(strdup(yytext));  }
+"'"         { string s(strdup(yytext));  }
+"\\"        { string s(strdup(yytext));  }
+"/"         { string s(strdup(yytext));  }
+"~"         { string s(strdup(yytext));  }
+"_"         { string s(strdup(yytext));  }
+":"         { string s(strdup(yytext));  }
+"&"         { string s(strdup(yytext));  }
+"*"         { string s(strdup(yytext));  }
+"::"        { string s(strdup(yytext));  }
+"."         { string s(strdup(yytext));  }
+"->"        { string s(strdup(yytext));  }
+".*"        { string s(strdup(yytext));  }
+"->*"       { string s(strdup(yytext));  }
 
 
 .           {
