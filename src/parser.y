@@ -90,15 +90,17 @@
 %token <std::string> FLOAT "floating"
 %token <std::string> CHAR "charcater"
 %token <std::string> VOID "void"
-%token <std::string> REFERENCE
-%token <std::string> POINTER
-%token <std::string> ASSIGNMENT
-%token <std::string> ARG
-%token <std::string> SPACE
-%token <std::string> TAB
-%token <std::string> NEWLINE
+%token <std::string> REFERENCE "ref"
+%token <std::string> POINTER "pointer"
+%token <std::string> ASSIGNMENT "assignment"
+%token <std::string> ARG "arg"
+%token <std::string> SPACE "space"
+%token <std::string> TAB "tab"
+%token <std::string> NEWLINE "newline"
 //%token <std::string> LBRACE RBRACE LCURLY RCURLY LPAREN RPAREN
-%token <std::string> STATIC CONST UNSIGNED VOLATILE MUTABLE REGISTER RESTRICT INLINE
+%token <std::string> STATIC "static"
+%token <std::string> CONST "const"
+%token <std::string> UNSIGNED VOLATILE MUTABLE REGISTER RESTRICT INLINE
 %token <std::string> SHIFT_LEFT SHIFT_RIGHT MODULUS
 %token <std::string> EQUALS LOGICAL_NOT LOGICAL_AND LOGICAL_OR BIT_AND BIT_OR BIT_XOR BIT_NOT
 %token <std::string> ADDITION SUBTRACTION MUTIPLICATION DIVISION
