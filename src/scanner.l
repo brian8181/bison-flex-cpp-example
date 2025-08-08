@@ -27,12 +27,19 @@
  */
 
 %{
+    // todo c libs
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+
 	#include <iostream>
 	#include <cstdlib>
 	#include "scanner.h"
 	#include "interpreter.h"
 	#include "parser.hpp"
 	#include "location.hh"
+
+
 
 	using namespace std;
 
@@ -53,7 +60,14 @@
 	//
 	// Location class can be found in location.hh and posistion.hh files. It's just a bit too much
 	// boilerplate for this small example. Bummer.
+
+
 %}
+
+ // bkp
+    /* %{
+        static void print_token (yytoken_kind_t token, YYSTYPE val);
+    %} */
 
 %option nodefault
 %option noyywrap
@@ -103,6 +117,10 @@
                 const char* s = "return";
                 //return s;
             }
+
+"int"       { string s(strdup(yytext));  }
+"float"     { string s(strdup(yytext));  }
+"char"      { string s(strdup(yytext));  }
 "if"        {  }
 "else"      {  }
 "do"        {  }
@@ -115,8 +133,6 @@
 "goto"      {  }
 "default"   {  }
 "void"      {  }
-
-
 
 
 .           {
