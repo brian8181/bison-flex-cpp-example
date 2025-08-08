@@ -133,6 +133,20 @@
 "goto"      {  }
 "default"   {  }
 "void"      {  }
+"private"   { string s(strdup(yytext));  }
+"protected" { string s(strdup(yytext));  }
+"public"    { string s(strdup(yytext));  }
+"inline"    { string s(strdup(yytext));  }
+"static"    { string s(strdup(yytext));  }
+"const"     { string s(strdup(yytext));  }
+"unsigned"  { string s(strdup(yytext));  }
+"volatile"  { string s(strdup(yytext));  }
+"register"  { string s(strdup(yytext));  }
+"restrict"  { string s(strdup(yytext));  }
+"!"         { string s(strdup(yytext));  }
+"=="        { string s(strdup(yytext));  }
+"&&"        { string s(strdup(yytext));  }
+"||"        { string s(strdup(yytext));  }
 
 
 .           {
