@@ -90,10 +90,13 @@
 %token <std::string> FLOAT "floating"
 %token <std::string> CHAR "charcater"
 %token <std::string> VOID "void"
-%token <std::string> REFERENCE POINTER
+%token <std::string> REFERENCE
+%token <std::string> POINTER
 %token <std::string> ASSIGNMENT
 %token <std::string> ARG
-%token <std::string> SPACE TAB NEWLINE
+%token <std::string> SPACE
+%token <std::string> TAB
+%token <std::string> NEWLINE
 //%token <std::string> LBRACE RBRACE LCURLY RCURLY LPAREN RPAREN
 %token <std::string> STATIC CONST UNSIGNED VOLATILE MUTABLE REGISTER RESTRICT INLINE
 %token <std::string> SHIFT_LEFT SHIFT_RIGHT MODULUS
