@@ -113,11 +113,7 @@
                 return EzAquarii::Parser::make_NUMBER(number, EzAquarii::location());
             }
 
-"return"    {
-                const char* s = "return";
-                //return s;
-            }
-
+"return"    { string s(strdup(yytext));  }
 "int"       { string s(strdup(yytext));  }
 "float"     { string s(strdup(yytext));  }
 "char"      { string s(strdup(yytext));  }
