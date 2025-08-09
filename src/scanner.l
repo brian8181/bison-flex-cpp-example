@@ -69,14 +69,193 @@
         static void print_token (yytoken_kind_t token, YYSTYPE val);
     %} */
 
+
+
 %option nodefault
 %option noyywrap
 %option c++
 %option yyclass="Scanner"
 %option prefix="EzAquarii_"
 
+VOID void
+RETURN return
+IF if
+type int|float|char
+
 %%
 
+!           {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"=="        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"&&"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"||"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"="         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+";"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+\+           {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+-          {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"{"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"}"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"["         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"]"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"<"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+">"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"#"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+\$         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+%         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+\^         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"\""        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"'"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"\\"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"/"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"~"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"_"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+":"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+&         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+\*         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"::"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+\.         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"->"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+".*"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+"->*"       {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+
+
+{VOID}        {
+                cout << "Scanner: 'void'" << endl;
+                return EzAquarii::Parser::make_VOID(yytext, EzAquarii::location());
+            }
+
+{RETURN}    {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+{type}      {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+{IF}        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+else      {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+do        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+while     {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+for       {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+continue  {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+switch    {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+case      {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+break     {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+goto      {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+default   {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+private  {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+protected {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+public   {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+inline    {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+static    {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+const     {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+unsigned  {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+volatile  {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+register  {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
+restrict  {  cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
 
 [a-z]+      {
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
@@ -102,12 +281,6 @@
                 cout << "Scanner: ','" << endl;
                 return EzAquarii::Parser::make_COMMA(EzAquarii::location());
             }
-
-"void"      {
-                cout << "Scanner: 'void'" << endl;
-                return EzAquarii::Parser::make_VOID(yytext, EzAquarii::location());
-            }
-
 [\n\t ]     {
                 //cout << "Scanner: whitechar (ignored)" << endl;
             }
@@ -118,189 +291,6 @@
                 return EzAquarii::Parser::make_NUMBER(number, EzAquarii::location());
             }
 
-"return"    {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"int"       {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"float"     {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"char"      {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"if"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"else"      {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"do"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"while"     {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"for"       {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"continue"  {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"switch"    {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"case"      {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"break"     {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"goto"      {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"default"   {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"void"      {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"private"   {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"protected" {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"public"    {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"inline"    {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"static"    {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"const"     {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"unsigned"  {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"volatile"  {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"register"  {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"restrict"  {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"!"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"=="        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"&&"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"||"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"="         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-";"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"+"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"-"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-","         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"("         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-")"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"{"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"}"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"["         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"]"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"<"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-">"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"#"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"$"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"%"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"^"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"\""        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"'"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"\\"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"/"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"~"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"_"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-":"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"&"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"*"         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"::"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"."         {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"->"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-".*"        {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
-"->*"       {  cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
-            }
 
 .           {
                 cout << "Scanner: unknown character [" << yytext << "]" << endl;
