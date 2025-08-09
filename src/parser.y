@@ -149,9 +149,9 @@
 %%
 
 program :
-            STRING | NUMBER | END | COMMA | SEMICOLON | RIGHTPAR | LEFTPAR
-            |
-            files {}
+        files                          { cout << "program:  files" << endl; exit(0); }
+            | STRING | NUMBER | END | COMMA | SEMICOLON | RIGHTPAR | LEFTPAR
+
     ;
 command:
 auguments:
