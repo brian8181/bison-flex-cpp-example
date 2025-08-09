@@ -349,6 +349,10 @@ restrict    {
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
                 return EzAquarii::Parser::make_NUMBER(yytext, EzAquarii::location( /* put location data here if you want */ ));
             }
+{ID}        {
+                cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return EzAquarii::Parser::make_ID(yytext, EzAquarii::location( /* put location data here if you want */ ));
+            }
 [\n\t ]     {
                 //cout << "Scanner: whitechar (ignored)" << endl;
             }
