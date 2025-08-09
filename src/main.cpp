@@ -37,7 +37,43 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     Interpreter i;
+    i.switchInputStream(&cin);
+    cout << "bcc parser 0.0.1"  << endl;
+
+    // skip exe path ...
+    argc--; argv++;
+    if (argc > 0)
+    {
+        FILE *file;
+        file = fopen(argv[0], "r");
+        if (!file)
+        {
+            fprintf(stderr,"could not open %s\n", argv[0]);
+            exit(1);
+        }
+
+    }
+    else
+    {
+        fprintf(stderr, "\nMissing filename paramter, help ->\n");
+        fprintf(stderr, "lex [OPTION]... [FilE]...\n");
+        fprintf(stderr, "Interactive mode...\n\n");
+
+    }
+
+    //yyparse();
+
     int res = i.parse();
     cout << "Parse complete. Result = " << res << endl;
     return 0;
 }
+
+
+// int main(int argc, char **argv) {
+//     Interpreter i;
+//     int res = i.parse();
+//     cout << "Parse complete. Result = " << res << endl;
+//     return res;
+
+
+// }
