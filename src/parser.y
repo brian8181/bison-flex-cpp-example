@@ -85,52 +85,14 @@
 %define parse.error verbose
 
 %define api.token.prefix {TOKEN_}
-
-%token <std::string> INT "indent"
-%token <std::string> FLOAT "floating"
-%token <std::string> CHAR "charcater"
-%token <std::string> VOID "void"
-%token <std::string> REFERENCE "ref"
-%token <std::string> POINTER "pointer"
-%token <std::string> ASSIGNMENT "assignment"
-%token <std::string> ARG "arg"
-%token <std::string> SPACE "space"
-%token <std::string> TAB "tab"
-%token <std::string> NEWLINE "newline"
-//%token <std::string> LBRACE RBRACE LCURLY RCURLY LPAREN RPAREN
-%token <std::string> STATIC "static"
-%token <std::string> CONST "const"
-%token <std::string> UNSIGNED VOLATILE MUTABLE REGISTER RESTRICT INLINE
-%token <std::string> SHIFT_LEFT SHIFT_RIGHT MODULUS
-%token <std::string> EQUALS LOGICAL_NOT LOGICAL_AND LOGICAL_OR BIT_AND BIT_OR BIT_XOR BIT_NOT
-%token <std::string> ADDITION SUBTRACTION MUTIPLICATION DIVISION
-%token <std::string> LESS_THAN GREATER_THAN
-%token <std::string> COLON DOUBLE_QUOTE SINGLE_QUOTE QUESTION_MARK DOT AT_SYMBOL
-%token <std::string> PRIVATE PROTECTED PUBLIC
-%token <std::string> ADDRESS_OF SCOPE_RESOLUTION
-%token <std::string> DIRECT_TO_POINTER INDIRECT_TO_POINTER
-%token <std::string> DIRECT_MEMBER_SELECT INDIRECT_MEMBER_SELECT
-%token <std::string> IF ELSE FOR DO WHILE CONTINUE BREAK SWITCH CASE GOTO DEFAULT RETURN
-%type <std::string> files
-%type <std::string> file
-%type <std::string> function
-%type <std::string> scopes
-%type <std::string> scope
-%type <std::string> lines
-%type <std::string> line
-%type <std::string> declaration
-%type <std::string> params
-%type <std::string> param
-%type <std::string> type
-%type <std::string> type_modifier
-%type <std::string> pointer_to_member
-%type <std::string> member_select
-%type <std::string> access_specifier
-%type <std::string> numeric_expr
-%type <std::string> expr
-%type <std::string> statement
-
-
+%type <std::string> files "files"
+%type <std::string> file "file"
+%type <std::string> scopes "scopes"
+%type <std::string> scope "scope"
+%type <std::string> lines "lines"
+%type <std::string> line "line"
+%type <std::string> exp "exp"
+%token VOID "void";
 %token END 0 "end of file"
 %token <std::string> STRING  "string";
 %token <uint64_t> NUMBER "number";
@@ -139,109 +101,42 @@
 %token SEMICOLON "semicolon";
 %token COMMA "comma";
 
-%type< EzAquarii::Command > command;
-%type< std::vector<uint64_t> > arguments;
 
 %start program
 
 %%
 
 program :   {
-                cout << "*** RUN ***" << endl;
-                cout << "Type function with list of parmeters. Parameter list can be empty" << endl
-                     << "or contain positive integers only. Examples: " << endl
-                     << " * function()" << endl
-                     << " * function(1,2,3)" << endl
-                     << "Terminate listing with ; to see parsed AST" << endl
-                     << "Terminate parser with Ctrl-D" << endl;
 
-                cout << endl << "prompt> ";
-
-                driver.clear();
             }
-        | program command
-            {
-                const Command &cmd = $2;
-                cout << "command parsed, updating AST" << endl;
-                driver.addCommand(cmd);
-                cout << endl << "prompt> ";
-            }
-        | program SEMICOLON
-            {
-                cout << "*** STOP RUN ***" << endl;
-                cout << driver.str() << endl;
-            }
-        ;
-
-
-command : STRING LEFTPAR RIGHTPAR
-        {
-            string &id = $1;
-            cout << "ID: " << id << endl;
-            $$ = Command(id);
-        }
-    | STRING LEFTPAR arguments RIGHTPAR
-        {
-            string &id = $1;
-            const std::vector<uint64_t> &args = $3;
-            cout << "function: " << id << ", " << args.size() << endl;
-            $$ = Command(id, args);
-        }
+            |
+            files {}
+    ;
+files:
+    file
+    | files file                        { cout << "files: files file\n"; };
+    ;
+file:
+    scopes                          { cout << "file: scopes END_OF_FILE\n"; }
+    ;
+scopes:
+    scope                               { cout << "scopes: scope\n"; }
+    | scopes scope                      { printf("scopes: scopes scope\n"); }
+    ;
+scope:
+    lines                               { /*printf("scope: lines=\"%s\"\n", $1);*/ }
+    | '{' lines '}'                     { /*printf("scope: '{' lines=\"%s\" '}'\n", $2); */ }
+    ;
+lines:
+    line                                { /*printf("lines: line=\"%s\"\n", $1);*/ }
+    | lines line                        { /*printf("lines: lines=\"%s\" line\"%s\"\n", $1, $2);*/ }
+    ;
+line:
+    exp ';'                       { /*printf("line: statement=\"%s\"\n", $1);*/ }
     ;
 
-arguments : NUMBER
-        {
-            uint64_t number = $1;
-            $$ = std::vector<uint64_t>();
-            $$.push_back(number);
-            cout << "first argument: " << number << endl;
-        }
-    | arguments COMMA NUMBER
-        {
-            uint64_t number = $3;
-            std::vector<uint64_t> &args = $1;
-            args.push_back(number);
-            $$ = args;
-            cout << "next argument: " << number << ", arg list size = " << args.size() << endl;
-        }
-    ;
-operator:
-    ASSIGNMENT
-    | ADDITION
-    | SUBTRACTION
-    | MUTIPLICATION
-    | DIVISION
-    | LESS_THAN
-    | EQUALS
-    | GREATER_THAN
-    | BIT_AND
-    | BIT_OR
-    | BIT_XOR
-    | BIT_NOT
-    | LOGICAL_NOT
-    | LOGICAL_AND
-    | LOGICAL_OR
-    | SHIFT_LEFT
-    | SHIFT_RIGHT
-    | MODULUS
-    | COLON
-    | SEMICOLON
-    | DOUBLE_QUOTE
-    | SINGLE_QUOTE
-    | QUESTION_MARK
-    | DOT
-    | AT_SYMBOL
-    | ADDRESS_OF
-    | SCOPE_RESOLUTION
-    ;
-member_select:
-    DIRECT_MEMBER_SELECT
-    | INDIRECT_MEMBER_SELECT
-    ;
-pointer_to_member:
-    INDIRECT_TO_POINTER
-    | DIRECT_TO_POINTER
-    ;
+exp:
+    NUMBER;
 
 
 %%

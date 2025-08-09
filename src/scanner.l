@@ -180,13 +180,10 @@ type int|float|char
 "->*"       {  cout << "Scanner: identifier [" << yytext << "]" << endl;
                 return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
             }
-
-
-{VOID}        {
+{VOID}      {
                 cout << "Scanner: 'void'" << endl;
-                return EzAquarii::Parser::make_VOID(yytext, EzAquarii::location());
+                //return EzAquarii::Parser::make_VOID(yytext, EzAquarii::location());
             }
-
 {RETURN}    {  cout << "Scanner: identifier [" << yytext << "]" << endl;
                 return EzAquarii::Parser::make_STRING(yytext, EzAquarii::location( /* put location data here if you want */ ));
             }
