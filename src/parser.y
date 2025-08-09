@@ -29,7 +29,7 @@
 %skeleton "lalr1.cc" /* -*- C++ -*- */
 %require "3.0"
 %defines
-%define parser_class_name { Parser }
+%define api.parser.class { Parser }
 
 %define api.token.constructor
 %define api.value.type variant
@@ -85,17 +85,10 @@
 %define parse.error verbose
 
 %define api.token.prefix {TOKEN_}
-
-%token END 0 "end of file"
-%token <std::string> STRING  "string";
-%token LEFTPAR "leftpar";
-%token RIGHTPAR "rightpar";
+%token LPAREN "lparen";
+%token RPAREN "rparen";
 %token SEMICOLON "semicolon";
 %token COMMA "comma";
-
-%type< Ez::Command > command;
-%type< std::vector<uint64_t> > arguments;
-
 %token <std::string> ESCAPE
 %token <std::string> INCLUDE DEFINE IFDEF IFNDEF ENDIF PRAGMA
 %token <std::string> USING NAMESPACE
@@ -104,7 +97,7 @@
 %token <std::string> REFERENCE POINTER
 %token <std::string> NUMBER "number"
 %token <std::string> ID
-%token <std::string> ASSIGNMENT
+%token <std::string> ASSIGNMENT "assignment"
 %token <std::string> ARG
 %token <std::string> SPACE TAB NEWLINE END_OF_FILE
 %token <std::string> LEFT_BRACE RIGHT_BRACE LEFT_CURLY RIGHT_CURLY LEFT_PAREN RIGHT_PAREN
@@ -143,17 +136,18 @@
 %type <std::string> expr "expr"
 %type <std::string> statement "statement"
 %type <std::string> preprocess "preprocess"
+
+%token END 0 "end of file"
+%token <std::string> STRING  "string";
+
 %start program
 
 %%
 
 program :
         files                          { cout << "program:  files" << endl; exit(0); }
-            | STRING | NUMBER | END | COMMA | SEMICOLON | RIGHTPAR | LEFTPAR
-
+            | STRING | NUMBER | END | LPAREN | RPAREN | flow_control | member_select | space | operator | access_specifier | pointer_to_member | scope_resolution | preprocess
     ;
-command:
-auguments:
 files:
     file
     | files file                        { cout << "files: files file\n"; };

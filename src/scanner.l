@@ -83,42 +83,34 @@ FLOAT float
 CHAR char
 RETURN return
 IF if
-type int|float|char
-digit   [0-9]
+SEMICOLON ;
+ASSIGNMENT =
 NUMBER  [0-9]+
 ID      [a-zA-Z_][a-zA-Z0-9_]*
 
 %%
 
-!           {
+{SEMICOLON}  {
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
-            }
-"=="        {
+                return Ez::Parser::make_SEMICOLON(Ez::location( /* put location data here if you want */ ));
+             }
+{ASSIGNMENT} {
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
-            }
-"&&"        {
-                cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
-            }
-"||"        {
-                cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
-            }
-"="         {
-                cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
-            }
-";"         {
-                cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
-            }
+                return Ez::Parser::make_ASSIGNMENT(yytext, Ez::location( /* put location data here if you want */ ));
+             }
 \+          {
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
                 return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
             }
 -           {
+                cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
+            }
+,           {
+                cout << "Scanner: ','" << endl;
+                return Ez::Parser::make_COMMA(Ez::location());
+            }
+!           {
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
                 return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
             }
@@ -178,6 +170,15 @@ ID      [a-zA-Z_][a-zA-Z0-9_]*
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
                 return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
             }
+"\("          {
+                cout << "Scanner: '('" << endl;
+                return Ez::Parser::make_LPAREN(Ez::location());
+            }
+"\)"          {
+                cout << "Scanner: ')'" << endl;
+                return Ez::Parser::make_RPAREN(Ez::location());
+            }
+
 "~"         {
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
                 return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
@@ -218,6 +219,18 @@ ID      [a-zA-Z_][a-zA-Z0-9_]*
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
                 return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
             }
+"=="        {
+                cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
+            }
+"&&"        {
+                cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
+            }
+"||"        {
+                cout << "Scanner: identifier [" << yytext << "]" << endl;
+                return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
+            }
 {INT}      {
                 cout << "Scanner: 'void'" << endl;
                 return Ez::Parser::make_INT(yytext, Ez::location());
@@ -235,10 +248,6 @@ ID      [a-zA-Z_][a-zA-Z0-9_]*
                 return Ez::Parser::make_VOID(yytext, Ez::location());
             }
 {RETURN}    {
-                cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
-            }
-{type}      {
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
                 return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
             }
@@ -325,26 +334,6 @@ restrict    {
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
                 return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
             }
-[a-z]+      {
-                cout << "Scanner: identifier [" << yytext << "]" << endl;
-                return Ez::Parser::make_STRING(yytext, Ez::location( /* put location data here if you want */ ));
-            }
-\(          {
-                cout << "Scanner: '('" << endl;
-                return Ez::Parser::make_LEFTPAR(Ez::location());
-            }
-\)          {
-                cout << "Scanner: ')'" << endl;
-                return Ez::Parser::make_RIGHTPAR(Ez::location());
-            }
-;           {
-                cout << "Scanner: ';'" << endl;
-                return Ez::Parser::make_SEMICOLON(Ez::location());
-            }
-,           {
-                cout << "Scanner: ','" << endl;
-                return Ez::Parser::make_COMMA(Ez::location());
-            }
 {NUMBER}    {
                 cout << "Scanner: identifier [" << yytext << "]" << endl;
                 return Ez::Parser::make_NUMBER(yytext, Ez::location( /* put location data here if you want */ ));
@@ -355,11 +344,6 @@ restrict    {
             }
 [\n\t ]     {
                 //cout << "Scanner: whitechar (ignored)" << endl;
-            }
-[abc][abc][1-9][0-9]* {
-                // cout << "Scanner: decimal number: " << yytext << endl;
-                // uint64_t number = strtoull(yytext, 0, 10);
-                // return Ez::Parser::make_NUMBER(number, Ez::location());
             }
 .           {
                 cout << "Scanner: unknown character [" << yytext << "]" << endl;
