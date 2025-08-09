@@ -61,10 +61,8 @@ int main(int argc, char* argv[])
 
     }
 
-    //yyparse();
-
     int res = i.parse();
-    cout << "Parse complete. Result = " << res << endl;
+    cout << "bcc, parse complete..." << res << endl;
     return 0;
 }
 

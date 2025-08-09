@@ -88,7 +88,6 @@
 
 %token END 0 "end of file"
 %token <std::string> STRING  "string";
-%token <uint64_t> NUMBER "number";
 %token LEFTPAR "leftpar";
 %token RIGHTPAR "rightpar";
 %token SEMICOLON "semicolon";
@@ -103,7 +102,7 @@
 %token <std::string> INT FLOAT CHAR VOID
 %token <std::string> CLASS STRUCT TEMPLATE TYPENAME
 %token <std::string> REFERENCE POINTER
-%token <std::string> NUM
+%token <std::string> NUMBER "number"
 %token <std::string> ID
 %token <std::string> ASSIGNMENT
 %token <std::string> ARG
@@ -254,6 +253,92 @@ flow_control:
     | GOTO                              { printf("flow_control: GOTO\n"); }
     | DEFAULT                           { printf("flow_control: DEFAULT\n"); }
     | RETURN                            { printf("flow_control: RETURN\n"); }
+    ;
+space:
+    SPACE                               { printf("space:\n"); }
+    | TAB                               { printf("space:\n"); }
+    | NEWLINE                           { printf("space:\n"); }
+    | END_OF_FILE                       { printf("space:\n"); }
+    ;
+operator:
+    ASSIGNMENT                          { printf("operator:\n"); }
+    | ADDITION                          { printf("operator:\n"); }
+    | SUBTRACTION                       { printf("operator:\n"); }
+    | MUTIPLICATION                     { printf("operator:\n"); }
+    | DIVISION                          { printf("operator:\n"); }
+    | LESS_THAN                         { printf("operator:\n"); }
+    | EQUALS                            { printf("operator:\n"); }
+    | GREATER_THAN                      { printf("operator:\n"); }
+    | BIT_AND                           { printf("operator:\n"); }
+    | BIT_OR                            { printf("operator:\n"); }
+    | BIT_XOR                           { printf("operator:\n"); }
+    | BIT_NOT                           { printf("operator:\n"); }
+    | LOGICAL_NOT                       { printf("operator:\n"); }
+    | LOGICAL_AND                       { printf("operator:\n"); }
+    | LOGICAL_OR                        { printf("operator:\n"); }
+    | SHIFT_LEFT                        { printf("operator:\n"); }
+    | SHIFT_RIGHT                       { printf("operator:\n"); }
+    | MODULUS                           { printf("operator:\n"); }
+    | LEFT_BRACE                        { printf("operator:\n"); }
+    | LEFT_CURLY                        { printf("operator:\n"); }
+    | LEFT_PAREN                        { printf("operator:\n"); }
+    | RIGHT_BRACE                       { printf("operator:\n"); }
+    | RIGHT_CURLY                       { printf("operator:\n"); }
+    | RIGHT_PAREN                       { printf("operator:\n"); }
+    | COMMA                             { printf("operator:\n"); }
+    | COLON                             { printf("operator:\n"); }
+    | SEMICOLON                         { printf("operator:\n"); }
+    | DOUBLE_QUOTE                      { printf("operator:\n"); }
+    | SINGLE_QUOTE                      { printf("operator:\n"); }
+    | QUESTION_MARK                     { printf("operator:\n"); }
+    | DOT                               { printf("operator:\n"); }
+    | AT_SYMBOL                         { printf("operator:\n"); }
+    | ADDRESS_OF                        { printf("operator:\n"); }
+    | SCOPE_RESOLUTION                  { printf("operator:\n"); }
+    | LSHIFT                            { printf("operator:\n"); }
+    | RSHIFT                            { printf("operator:\n"); }
+    | INCREMENT                         { printf("operator:\n"); }
+    | DECREMENT                         { printf("operator:\n"); }
+    | ADD_ASSIGN                        { printf("operator:\n"); }
+    | SUB_ASSIGN                        { printf("operator:\n"); }
+    | MULT_ASSIGN                       { printf("operator:\n"); }
+    | DIV_ASSIGN                        { printf("operator:\n"); }
+    | MOD_ASSIGN                        { printf("operator:\n"); }
+    | BIT_AND_ASSIGN                    { printf("operator:\n"); }
+    | BIT_OR_ASSIGN                     { printf("operator:\n"); }
+    | BIT_XOR_ASSIGN                    { printf("operator:\n"); }
+    | BIT_NOT_ASSIGN                    { printf("operator:\n"); }
+    | LSHIFT_ASSIGN                     { printf("operator:\n"); }
+    | RSHIFT_ASSIGN                     { printf("operator:\n"); }
+    | TEMPLATE                          { printf("operator: TEMPLATE\n"); }
+    | TYPENAME                          { printf("operator: TYPENAME\n"); }
+    | SIZEOF                            { printf("operator:\n"); }
+    | DELETE                            { printf("operator:\n"); }
+    | STATIC_CAST                       { printf("operator:\n"); }
+    | CONST_CAST                        { printf("operator:\n"); }
+    | DYNAMIC_CAST                      { printf("operator:\n"); }
+    | REINTERPRET_CAST                  { printf("operator:\n"); }
+    ;
+member_select:
+    DIRECT_MEMBER_SELECT                { printf("member_select: DIRECT_MEMBER_SELECT\n"); }
+    | INDIRECT_MEMBER_SELECT            { printf("member_select: INDIRECT_MEMBER_SELECT\n"); }
+    ;
+pointer_to_member:
+    INDIRECT_TO_POINTER                 { printf("pointer_to_member: INDIRECT_TO_POINTER\n"); }
+    | DIRECT_TO_POINTER                 { printf("pointer_to_member: DIRECT_TO_POINTER\n"); }
+    ;
+scope_resolution:
+    USING                               { printf("scope_resolution: USING\n"); }
+    | NAMESPACE                         { printf("scope_resolution: NAMESPACE\n"); }
+    ;
+preprocess:
+    INCLUDE                             { printf("preprocess: include\n"); }
+    | DEFINE                            { printf("preprocess: DEFINE\n"); }
+    | IFDEF                             { printf("preprocess: IFDEF\n"); }
+    | IFNDEF                            { printf("preprocess: IFNDEF\n"); }
+    | ENDIF                             { printf("preprocess: ENDIF\n"); }
+    | PRAGMA                            { printf("preprocess: PRAGMA\n"); }
+    | ESCAPE
     ;
 
 %%
