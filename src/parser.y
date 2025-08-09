@@ -85,14 +85,7 @@
 %define parse.error verbose
 
 %define api.token.prefix {TOKEN_}
-%type <std::string> files "files"
-%type <std::string> file "file"
-%type <std::string> scopes "scopes"
-%type <std::string> scope "scope"
-%type <std::string> lines "lines"
-%type <std::string> line "line"
-%type <std::string> exp "exp"
-%token VOID "void";
+
 %token END 0 "end of file"
 %token <std::string> STRING  "string";
 %token <uint64_t> NUMBER "number";
@@ -101,23 +94,73 @@
 %token SEMICOLON "semicolon";
 %token COMMA "comma";
 
+%type< EzAquarii::Command > command;
+%type< std::vector<uint64_t> > arguments;
 
+%token <std::string> ESCAPE
+%token <std::string> INCLUDE DEFINE IFDEF IFNDEF ENDIF PRAGMA
+%token <std::string> USING NAMESPACE
+%token <std::string> INT FLOAT CHAR VOID
+%token <std::string> CLASS STRUCT TEMPLATE TYPENAME
+%token <std::string> REFERENCE POINTER
+%token <std::string> NUM
+%token <std::string> ID
+%token <std::string> ASSIGNMENT
+%token <std::string> ARG
+%token <std::string> SPACE TAB NEWLINE END_OF_FILE
+%token <std::string> LEFT_BRACE RIGHT_BRACE LEFT_CURLY RIGHT_CURLY LEFT_PAREN RIGHT_PAREN
+%token <std::string> STATIC CONST UNSIGNED VOLATILE MUTABLE REGISTER RESTRICT INLINE
+%token <std::string> SHIFT_LEFT SHIFT_RIGHT MODULUS
+%token <std::string> EQUALS LOGICAL_NOT LOGICAL_AND LOGICAL_OR BIT_AND BIT_OR BIT_XOR BIT_NOT
+%token <std::string> ADDITION SUBTRACTION MUTIPLICATION DIVISION
+%token <std::string> LESS_THAN GREATER_THAN
+%token <std::string> COLON DOUBLE_QUOTE SINGLE_QUOTE QUESTION_MARK DOT AT_SYMBOL
+%token <std::string> PRIVATE PROTECTED PUBLIC
+%token <std::string> ADDRESS_OF SCOPE_RESOLUTION
+%token <std::string> DIRECT_TO_POINTER INDIRECT_TO_POINTER
+%token <std::string> DIRECT_MEMBER_SELECT INDIRECT_MEMBER_SELECT
+%token <std::string> IF ELSE FOR DO WHILE CONTINUE BREAK SWITCH CASE GOTO DEFAULT RETURN
+%token <std::string> LSHIFT RSHIFT INCREMENT DECREMENT
+%token <std::string> ADD_ASSIGN SUB_ASSIGN MULT_ASSIGN DIV_ASSIGN MOD_ASSIGN
+%token <std::string> BIT_AND_ASSIGN BIT_OR_ASSIGN BIT_XOR_ASSIGN BIT_NOT_ASSIGN
+%token <std::string> LSHIFT_ASSIGN RSHIFT_ASSIGN
+%token <std::string> SIZEOF DELETE CONST_CAST DYNAMIC_CAST STATIC_CAST REINTERPRET_CAST
+%type <std::string> files "files"
+%type <std::string> file "file"
+%type <std::string> function "function"
+%type <std::string> scopes "scopes"
+%type <std::string> scope "scope"
+%type <std::string> lines "lines"
+%type <std::string> line "line"
+%type <std::string> declaration "declaration"
+%type <std::string> params "parmas"
+%type <std::string> param "param"
+%type <std::string> type "type"
+%type <std::string> type_modifier "type_modifier"
+%type <std::string> pointer_to_member "pointer_to_member"
+%type <std::string> member_select "member_select"
+%type <std::string> access_specifier "access_specifier"
+%type <std::string> numeric_expr "numeric_expr"
+%type <std::string> expr "expr"
+%type <std::string> statement "statement"
+%type <std::string> preprocess "preprocess"
 %start program
 
 %%
 
-program :   {
-
-            }
+program :
+            STRING | NUMBER | END | COMMA | SEMICOLON | RIGHTPAR | LEFTPAR
             |
             files {}
     ;
+command:
+auguments:
 files:
     file
     | files file                        { cout << "files: files file\n"; };
     ;
 file:
-    scopes                          { cout << "file: scopes END_OF_FILE\n"; }
+    scopes                              { cout << "file: scopes END_OF_FILE\n"; }
     ;
 scopes:
     scope                               { cout << "scopes: scope\n"; }
@@ -132,12 +175,86 @@ lines:
     | lines line                        { /*printf("lines: lines=\"%s\" line\"%s\"\n", $1, $2);*/ }
     ;
 line:
-    exp ';'                       { /*printf("line: statement=\"%s\"\n", $1);*/ }
+    statement ';'                       { printf("line: statement=\"%s\"\n", $1); }
     ;
-
-exp:
-    NUMBER;
-
+statement:
+    expr                                { printf("statement: expr=\"%s\"\n", $1); }
+    ;
+expr:
+    declaration                         { printf("expr: declaration=\"%s\"\n", $1); }
+    | function                          { printf("expr: function=\"%s\"\n", $1); }
+    | ID '=' expr                       { printf("expr: ID '=' expr\n"); }
+    | numeric_expr                      { printf("expr: numeric_expr=\"%s\"\n", $1); }
+    | IF '(' expr ')' expr              { printf("expr: IF '(' expr=\"%s\" ')' expr=\"%s\"\n", $3, $5); }
+    | IF '(' expr ')' '{' expr ';' '}'  { printf("expr: IF '(' expr=\"%s\" ')' '{' expr=\"%s\" ';' '}'\n", $3, $6); }
+    ;
+numeric_expr:
+    NUMBER                              { printf("binary_op: NUMBER=\"%s\"\n", $1); }
+    | numeric_expr '+' numeric_expr     {
+                                            char buffer[64];
+                                            sprintf(buffer, "%s + %s", $1, $3);
+                                            printf("%s\n", buffer);
+                                        }
+    | numeric_expr '-' numeric_expr     {
+                                            char buffer[64];
+                                            sprintf(buffer, "%s - %s", $1, $3);
+                                            printf("%s\n", buffer);
+                                        }
+    ;
+function:
+    declaration '(' ')'                 { printf("function: declaration '(' ')'\n"); }
+    | declaration '(' params ')'        { printf("function: declaration '(' params ')' )\n"); }
+    ;
+declaration:
+    type ID                             { printf("declaration: type=\"%s\" ID=\"%s\"\n", $1, $2); }
+    | type_modifier type ID             { printf("declaration: type_modifier=\"%s\" type=\"%s\" ID=\"%s\"\n", $1, $2, $3); }
+    ;
+params:
+    param                               { printf("params: param=\"%s\" \n", $1); }
+    | params ',' param                  { printf("params: params=\"%s\" , param=\"%s\"\n", $1, $3); }
+    ;
+param:
+    ARG                                 { printf("param: ARG=\"%s\"\n", $1); }
+    ;
+access_specifier:
+        PUBLIC
+        | PROTECTED
+        | PRIVATE
+        ;
+type_modifier:
+    STATIC                              { printf("type_modifier: STATIC\n"); }
+    | CONST                             { printf("type_modifier: CONST\n"); }
+    | UNSIGNED                          { printf("type_modifier: VOID\n"); }
+    | VOLATILE                          { printf("type_modifier: VOLATILE\n"); }
+    | MUTABLE                           { printf("type_modifier: MUTABLE\n"); }
+    | REGISTER                          { printf("type_modifier: REGISTER\n"); }
+    | RESTRICT                          { printf("type_modifier: RESTRICT\n"); }
+    | INLINE                            { printf("type_modifier: INLINE\n"); }
+    ;
+type:
+    INT                                 { printf("type: INT\n"); }
+    | FLOAT                             { printf("type: FLOAT\n"); }
+    | CHAR                              { printf("type: CHAR\n"); }
+    | VOID                              { printf("type: VOID\n"); }
+    | type REFERENCE                    { printf("type: type REFERENCE\n"); }
+    | type POINTER                      { printf("type: type POINTER\n"); }
+    | CLASS                             { printf("type: CLASS\n"); }
+    | STRUCT                            { printf("type: STRUCT\n"); }
+    ;
+flow_control:
+    FOR                                 { printf("flow_control: FOR\n"); }
+    | WHILE                             { printf("flow_control: WHILE\n"); }
+    | DO                                { printf("flow_control: DO\n"); }
+    | BREAK                             { printf("flow_control: BREAK\n"); }
+    | CONTINUE                          { printf("flow_control: CONTINUE\n"); }
+    | IF                                { printf("flow_control: IF\n"); }
+    | ELSE                              { printf("flow_control: ELSE\n"); }
+    | SWITCH                            { printf("flow_control: SWITCH\n"); }
+    | CASE                              { printf("flow_control: CASE\n"); }
+    | GOTO                              { printf("flow_control: GOTO\n"); }
+    | DEFAULT                           { printf("flow_control: DEFAULT\n"); }
+    | RETURN                            { printf("flow_control: RETURN\n"); }
+    ;
 
 %%
 
